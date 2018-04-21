@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
  */
 
 public interface CommandHandler<T extends DomainCommand> {
-     CommandResponse handle(T command);
+     void handle(T command);
      default Class<T> handles(){
           Class clazz = getClass();
           ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericInterfaces()[0];

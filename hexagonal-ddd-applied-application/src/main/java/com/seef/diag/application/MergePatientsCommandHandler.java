@@ -1,7 +1,6 @@
 package com.seef.diag.application;
 
 import com.seef.diag.commons.CommandHandler;
-import com.seef.diag.commons.CommandResponse;
 import com.seef.diag.domain.command.MergePatientsCommand;
 import com.seef.diag.domain.port.PatientRepository;
 
@@ -19,7 +18,7 @@ public class MergePatientsCommandHandler implements CommandHandler<MergePatients
     }
 
     @Override
-    public CommandResponse handle(MergePatientsCommand command) {
-        return null;
+    public void handle(MergePatientsCommand command) {
+
     }
 }

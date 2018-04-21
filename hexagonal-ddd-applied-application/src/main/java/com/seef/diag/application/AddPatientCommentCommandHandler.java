@@ -1,7 +1,6 @@
 package com.seef.diag.application;
 
 import com.seef.diag.commons.CommandHandler;
-import com.seef.diag.commons.CommandResponse;
 import com.seef.diag.domain.command.AddPatientCommentCommand;
 import com.seef.diag.domain.port.PatientRepository;
 
@@ -19,7 +18,7 @@ public class AddPatientCommentCommandHandler implements CommandHandler<AddPatien
     }
 
     @Override
-    public CommandResponse handle(AddPatientCommentCommand command) {
-        return null;
+    public void handle(AddPatientCommentCommand command) {
+
     }
 }
