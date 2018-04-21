@@ -6,10 +6,7 @@ import com.seef.diag.domain.event.PatientCommentAddedEvent;
 import com.seef.diag.domain.event.PatientCreatedEvent;
 import com.seef.diag.domain.event.PatientStatusUpdatedEvent;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Patient extends MultiTenantEntity {
 
@@ -19,8 +16,9 @@ public class Patient extends MultiTenantEntity {
     private List<Comment> comments;
     private Date birthDay;
     private PatientStatus status;
+    private ClinicalIdentifier clinicalIdentifier;
 
-    private Patient(PatientId patientId, PatientName patientName, ContactInfo contactInfo, List<Comment> comments, Date birthDay, TenantId tenantId, PatientStatus status) {
+    private Patient(PatientId patientId, PatientName patientName, ContactInfo contactInfo, List<Comment> comments, Date birthDay, TenantId tenantId, PatientStatus status, ClinicalIdentifier clinicalIdentifier) {
         super(tenantId);
         this.patientId = patientId;
         this.patientName = patientName;
@@ -28,6 +26,7 @@ public class Patient extends MultiTenantEntity {
         this.comments = comments;
         this.birthDay = birthDay;
         this.status = status;
+        this.clinicalIdentifier = clinicalIdentifier;
     }
 
     public PatientId getPatientId() {
@@ -43,7 +42,7 @@ public class Patient extends MultiTenantEntity {
     }
 
     public List<Comment> getComments() {
-        return comments;
+        return Collections.unmodifiableList(comments);
     }
 
     public Date getBirthDay() {
@@ -52,6 +51,10 @@ public class Patient extends MultiTenantEntity {
 
     public PatientStatus getStatus() {
         return status;
+    }
+
+    public ClinicalIdentifier getClinicalIdentifier() {
+        return clinicalIdentifier;
     }
 
     public void addComment(String comment, CommentCriticality commentCriticality) {
@@ -81,17 +84,18 @@ public class Patient extends MultiTenantEntity {
 
     private static Patient createNewPatient(PatientBuilder builder) {
         PatientStatus patientStatus = PatientStatus.NORMAL;
-        final Patient patient = new Patient(PatientId.of(UUID.randomUUID().toString()), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, null, builder.birthDate, TenantId.of(builder.tenantId), patientStatus);
+        final Patient patient = new Patient(PatientId.of(UUID.randomUUID().toString()), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, null, builder.birthDate, TenantId.of(builder.tenantId), patientStatus, ClinicalIdentifier.of(builder.clinicalIdentifier));
         patient.publishEvent(new PatientCreatedEvent(patient.getPatientId().value(), patient.getPatientName(), patient.getBirthDay(), patient.getContactInfo(), patient.getTenantId().getId()));
         return patient;
     }
 
     private static Patient instanceExistingPatient(PatientBuilder builder) {
-        return new Patient(PatientId.of(builder.patientId), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, builder.comments, builder.birthDate, TenantId.of(builder.tenantId), builder.patientStatus);
+        return new Patient(PatientId.of(builder.patientId), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, builder.comments, builder.birthDate, TenantId.of(builder.tenantId), builder.patientStatus, ClinicalIdentifier.of(builder.clinicalIdentifier));
     }
 
 
     public static class PatientBuilder {
+        private String clinicalIdentifier;
         private String patientId;
         private String patientName;
         private String surname1;
@@ -101,6 +105,11 @@ public class Patient extends MultiTenantEntity {
         private Date birthDate;
         private String tenantId;
         private PatientStatus patientStatus;
+
+        public PatientBuilder withClinicalIdentifier(String clinicalIdentifier) {
+            this.clinicalIdentifier = clinicalIdentifier;
+            return this;
+        }
 
         public PatientBuilder withPatientStatus(PatientStatus patientStatus) {
             this.patientStatus = patientStatus;
