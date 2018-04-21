@@ -17,16 +17,16 @@ public class Patient extends MultiTenantEntity {
     private PatientName patientName;
     private ContactInfo contactInfo;
     private List<Comment> comments;
-    private Date birthDate;
+    private Date birthDay;
     private PatientStatus status;
 
-    private Patient(PatientId patientId, PatientName patientName, ContactInfo contactInfo, List<Comment> comments, Date birthDate, TenantId tenantId, PatientStatus status) {
+    private Patient(PatientId patientId, PatientName patientName, ContactInfo contactInfo, List<Comment> comments, Date birthDay, TenantId tenantId, PatientStatus status) {
         super(tenantId);
         this.patientId = patientId;
         this.patientName = patientName;
         this.contactInfo = contactInfo;
         this.comments = comments;
-        this.birthDate = birthDate;
+        this.birthDay = birthDay;
         this.status = status;
     }
 
@@ -46,8 +46,8 @@ public class Patient extends MultiTenantEntity {
         return comments;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirthDay() {
+        return birthDay;
     }
 
     public PatientStatus getStatus() {
@@ -59,6 +59,12 @@ public class Patient extends MultiTenantEntity {
         this.comments.add(new Comment(comment, commentCriticality));
         this.publishEvent(new PatientCommentAddedEvent(comment, commentCriticality, patientId.value(), getTenantId().getId()));
         recalculateStatusFromComments();
+    }
+
+    public void incorporatePatient(Patient sourcePatient) {
+        ensureComments();
+        this.comments.addAll(sourcePatient.comments);
+        sourcePatient.comments.stream().map(c -> new PatientCommentAddedEvent(c.getComment(), c.getCriticality(), this.patientId.value(), this.getTenantId().getId()));
     }
 
     private void recalculateStatusFromComments() {
@@ -75,16 +81,8 @@ public class Patient extends MultiTenantEntity {
 
     private static Patient createNewPatient(PatientBuilder builder) {
         PatientStatus patientStatus = PatientStatus.NORMAL;
-        if(builder.comments != null) {
-            patientStatus = builder.comments.stream().filter(c -> c.getCriticality().equals(CommentCriticality.HIGH)).count() > 0 ? PatientStatus.WARNING : PatientStatus.NORMAL;
-        }
-
-        final Patient patient = new Patient(PatientId.of(UUID.randomUUID().toString()), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, builder.comments, builder.birthDate, TenantId.of(builder.tenantId), patientStatus);
-        patient.publishEvent(new PatientCreatedEvent(patient.getPatientId().value(), patient.getPatientName(), patient.getBirthDate(), patient.getContactInfo(), patient.getTenantId().getId()));
-        //create events for comments
-        if(patient.getComments() != null) {
-            patient.getComments().stream().map(c -> new PatientCommentAddedEvent(c.getComment(), c.getCriticality(), patient.getPatientId().value(), patient.getTenantId().getId())).forEach(patient::publishEvent);
-        }
+        final Patient patient = new Patient(PatientId.of(UUID.randomUUID().toString()), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, null, builder.birthDate, TenantId.of(builder.tenantId), patientStatus);
+        patient.publishEvent(new PatientCreatedEvent(patient.getPatientId().value(), patient.getPatientName(), patient.getBirthDay(), patient.getContactInfo(), patient.getTenantId().getId()));
         return patient;
     }
 
@@ -92,10 +90,6 @@ public class Patient extends MultiTenantEntity {
         return new Patient(PatientId.of(builder.patientId), PatientName.of(builder.patientName, builder.surname1, builder.surname2), builder.contactInfo, builder.comments, builder.birthDate, TenantId.of(builder.tenantId), builder.patientStatus);
     }
 
-    public void incorporatePatient(Patient sourcePatient) {
-        this.comments.addAll(sourcePatient.comments);
-        sourcePatient.comments.stream().map(c -> new PatientCommentAddedEvent(c.getComment(), c.getCriticality(), this.patientId.value(), this.getTenantId().getId()));
-    }
 
     public static class PatientBuilder {
         private String patientId;
