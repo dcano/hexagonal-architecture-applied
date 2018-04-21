@@ -1,12 +1,11 @@
 package com.seef.diag.domain.command;
 
-import com.seef.diag.domain.model.Comment;
+import com.seef.diag.commons.DomainCommand;
 import com.seef.diag.domain.model.ContactInfo;
 
 import java.util.Date;
-import java.util.List;
 
-public class CreatePatientCommand {
+public class CreatePatientCommand extends DomainCommand {
 
     private final String firstName;
     private final String surname1;
@@ -14,7 +13,8 @@ public class CreatePatientCommand {
     private final Date birthDay;
     private final ContactInfo contactInfo;
 
-    public CreatePatientCommand(String firstName, String surname1, String surname2, Date birthDay, ContactInfo contactInfo) {
+    public CreatePatientCommand(String firstName, String surname1, String surname2, Date birthDay, ContactInfo contactInfo, String tenantId) {
+        super(tenantId);
         this.firstName = firstName;
         this.surname1 = surname1;
         this.surname2 = surname2;

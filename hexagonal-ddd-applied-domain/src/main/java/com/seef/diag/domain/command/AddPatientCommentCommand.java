@@ -1,19 +1,19 @@
 package com.seef.diag.domain.command;
 
+import com.seef.diag.commons.DomainCommand;
 import com.seef.diag.domain.model.CommentCriticality;
 
-public class AddPatientCommentCommand {
+public class AddPatientCommentCommand extends DomainCommand {
 
     private final String patientId;
     private final String comment;
     private final CommentCriticality commentCriticality;
-    private final String tenantId;
 
     public AddPatientCommentCommand(String patientId, String comment, CommentCriticality commentCriticality, String tenantId) {
+        super(tenantId);
         this.patientId = patientId;
         this.comment = comment;
         this.commentCriticality = commentCriticality;
-        this.tenantId = tenantId;
     }
 
     public String getPatientId() {
@@ -28,7 +28,4 @@ public class AddPatientCommentCommand {
         return commentCriticality;
     }
 
-    public String getTenantId() {
-        return tenantId;
-    }
 }

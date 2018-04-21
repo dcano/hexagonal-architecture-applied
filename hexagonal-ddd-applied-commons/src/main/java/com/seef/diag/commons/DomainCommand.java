@@ -9,15 +9,11 @@ public abstract class DomainCommand {
     protected final String commandUid;
     protected final ZonedDateTime occurredOn;
     protected final String tenantId;
-    private final DomainUser userInfo;
-    private final String version;
 
-    public DomainCommand(String tenantId, DomainUser userInfo, String version) {
+    public DomainCommand(String tenantId) {
         occurredOn = ZonedDateTime.now(ZoneOffset.UTC);
         commandUid = UUID.randomUUID().toString();
         this.tenantId = tenantId;
-        this.userInfo = userInfo;
-        this.version = version;
     }
 
     public String commandUid() {
@@ -34,14 +30,6 @@ public abstract class DomainCommand {
 
     public String tenantId() {
         return tenantId;
-    }
-
-    public DomainUser getUserInfo() {
-        return userInfo;
-    }
-
-    public String version() {
-        return version;
     }
 
 }

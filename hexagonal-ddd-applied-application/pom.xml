@@ -11,5 +11,15 @@
 
     <artifactId>hexagonal-ddd-applied-application</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.seef.diag</groupId>
+            <artifactId>hexagonal-ddd-applied-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
