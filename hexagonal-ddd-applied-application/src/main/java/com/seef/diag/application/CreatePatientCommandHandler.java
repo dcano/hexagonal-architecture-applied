@@ -2,7 +2,9 @@ package com.seef.diag.application;
 
 import com.seef.diag.commons.CommandHandler;
 import com.seef.diag.commons.CommandResponse;
+import com.seef.diag.commons.TenantId;
 import com.seef.diag.domain.command.CreatePatientCommand;
+import com.seef.diag.domain.model.Patient;
 import com.seef.diag.domain.port.PatientRepository;
 
 import javax.inject.Inject;
@@ -20,6 +22,12 @@ public class CreatePatientCommandHandler implements CommandHandler<CreatePatient
 
     @Override
     public CommandResponse handle(CreatePatientCommand command) {
+        //check if patient with clinical identifier already exists
+        Patient patient = patientRepository.findOneBy(command.getClinicalIdentifier(), TenantId.of(command.tenantId()));
+        if(patient != null) {
+            throw new IllegalStateException("Patient with id " + command.getClinicalIdentifier().value() + " already exists.");
+        }
+
 
         return null;
     }
