@@ -70,6 +70,10 @@ public class Patient extends MultiTenantEntity {
         sourcePatient.comments.stream().map(c -> new PatientCommentAddedEvent(c.getComment(), c.getCriticality(), this.patientId.value(), this.getTenantId().getId()));
     }
 
+    public static PatientBuilder builder() {
+        return new PatientBuilder();
+    }
+
     private void recalculateStatusFromComments() {
         PatientStatus newStatus = comments.stream().filter(c -> c.getCriticality().equals(CommentCriticality.HIGH)).count() > 0 ? PatientStatus.WARNING : PatientStatus.NORMAL;;
         if(!this.status.equals(newStatus)) {
