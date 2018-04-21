@@ -20,6 +20,7 @@ public class CreatePatientCommandHandler implements CommandHandler<CreatePatient
 
     @Override
     public CommandResponse handle(CreatePatientCommand command) {
+
         return null;
     }
 }
