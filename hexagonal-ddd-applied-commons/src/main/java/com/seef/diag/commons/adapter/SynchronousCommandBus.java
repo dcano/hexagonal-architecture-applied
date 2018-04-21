@@ -3,7 +3,6 @@ package com.seef.diag.commons.adapter;
 
 import com.seef.diag.commons.CommandBus;
 import com.seef.diag.commons.CommandHandler;
-import com.seef.diag.commons.CommandResponse;
 import com.seef.diag.commons.DomainCommand;
 
 import javax.inject.Inject;
@@ -32,11 +31,11 @@ public class SynchronousCommandBus implements CommandBus {
 
     @SuppressWarnings("unchecked")
     @Override
-    public CommandResponse push(DomainCommand command) {
+    public void push(DomainCommand command) {
         if(!handlersExistsFor(command.getClass().getName())){
-            return CommandResponse.failResponse().forCommand(command).withMessage("Command handler not found for ["+command.getClass().getName()+"]");
+            throw new IllegalStateException("Command handler not found for ["+command.getClass().getName()+"]");
         }
-        return handlersMap.get(command.getClass().getName()).handle(command).forCommand(command);
+        handlersMap.get(command.getClass().getName()).handle(command);
     }
 
     @SuppressWarnings("unchecked")

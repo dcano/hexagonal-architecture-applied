@@ -7,7 +7,6 @@ import com.seef.diag.domain.model.Patient;
 import com.seef.diag.domain.model.PatientId;
 import com.seef.diag.domain.port.PatientOutputPort;
 import com.seef.diag.domain.port.PatientRepository;
-import com.seef.diag.domain.services.PatientMergeService;
 
 import javax.inject.Inject;
 import javax.inject.Named;

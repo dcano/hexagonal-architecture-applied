@@ -6,6 +6,6 @@ package com.seef.diag.commons;
 
 public interface CommandBus {
     void registerHandler(final CommandHandler<? extends DomainCommand> handler);
-    CommandResponse push(final DomainCommand command);
+    void push(final DomainCommand command);
     void pushAndForget(final DomainCommand command);
 }

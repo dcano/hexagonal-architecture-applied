@@ -11,5 +11,15 @@
 
     <artifactId>hexagonal-ddd-applied-adapters</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.seef.diag</groupId>
+            <artifactId>hexagonal-ddd-applied-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
