@@ -1,4 +1,4 @@
-package com.seef.diag.adapter.repository.mongo;
+package com.seef.diag.adapter.repository.mongo.patient;
 
 import com.seef.diag.domain.model.Patient;
 

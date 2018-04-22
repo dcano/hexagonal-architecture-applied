@@ -1,4 +1,4 @@
-package com.seef.diag.adapter.repository.mongo;
+package com.seef.diag.adapter.repository.mongo.patient;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
