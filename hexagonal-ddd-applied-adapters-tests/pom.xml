@@ -16,10 +16,12 @@
         <dependency>
             <groupId>com.seef.diag</groupId>
             <artifactId>hexagonal-ddd-applied-tests-utils</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.seef.diag</groupId>
             <artifactId>hexagonal-ddd-applied-domain</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>

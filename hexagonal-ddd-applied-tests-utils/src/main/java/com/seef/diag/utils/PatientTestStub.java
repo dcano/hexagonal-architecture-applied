@@ -40,8 +40,9 @@ public class PatientTestStub {
     }
 
     private static List<Patient> generateNumberOfPatientsForTenant(int numberOfPatients, String tenantId, boolean sameName) {
+        PatientName patientName = randomPatientName();
         return IntStream.range(0, numberOfPatients)
-                .mapToObj(i -> sameName?randomPatientForTenant(tenantId):randomPatientForTenantWithName(tenantId, randomPatientName()))
+                .mapToObj(i -> !sameName?randomPatientForTenant(tenantId):randomPatientForTenantWithName(tenantId, patientName))
                 .collect(Collectors.toList());
     }
 

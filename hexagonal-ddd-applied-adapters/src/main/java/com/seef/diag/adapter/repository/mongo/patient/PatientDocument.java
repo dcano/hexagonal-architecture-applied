@@ -1,6 +1,7 @@
 package com.seef.diag.adapter.repository.mongo.patient;
 
-import com.seef.diag.domain.model.*;
+import com.seef.diag.domain.model.Comment;
+import com.seef.diag.domain.model.PatientStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -18,9 +19,9 @@ public class PatientDocument {
 
     @Id
     private String id;
-    private PatientName patientName;
-    private ContactInfo contactInfo;
-    private List<Comment> comments;
+    private PatientNameDocument patientName;
+    private ContactInfoDocument contactInfo;
+    private List<CommentDocument> comments;
     private Date birthDay;
     private PatientStatus status;
     private String clinicalIdentifier;
@@ -34,27 +35,27 @@ public class PatientDocument {
         this.id = id;
     }
 
-    public PatientName getPatientName() {
+    public PatientNameDocument getPatientName() {
         return patientName;
     }
 
-    public void setPatientName(PatientName patientName) {
+    public void setPatientName(PatientNameDocument patientName) {
         this.patientName = patientName;
     }
 
-    public ContactInfo getContactInfo() {
+    public ContactInfoDocument getContactInfo() {
         return contactInfo;
     }
 
-    public void setContactInfo(ContactInfo contactInfo) {
+    public void setContactInfo(ContactInfoDocument contactInfo) {
         this.contactInfo = contactInfo;
     }
 
-    public List<Comment> getComments() {
+    public List<CommentDocument> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<CommentDocument> comments) {
         this.comments = comments;
     }
 

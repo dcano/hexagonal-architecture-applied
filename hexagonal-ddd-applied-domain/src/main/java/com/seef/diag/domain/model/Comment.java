@@ -1,6 +1,9 @@
 package com.seef.diag.domain.model;
 
-public class Comment {
+import com.seef.diag.commons.ValueObject;
+
+public class Comment extends ValueObject {
+
     private final String comment;
     private final CommentCriticality criticality;
 
