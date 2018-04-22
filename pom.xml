@@ -14,7 +14,13 @@
         <module>hexagonal-ddd-applied-application</module>
         <module>hexagonal-ddd-applied-adapters</module>
         <module>hexagonal-ddd-applied-commons</module>
+        <module>hexagonal-ddd-applied-adapters-tests</module>
+        <module>hexagonal-ddd-applied-tests-utils</module>
     </modules>
+
+    <properties>
+        <org.springframework.version>1.5.9.RELEASE</org.springframework.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -39,6 +45,16 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.seef.diag</groupId>
+                <artifactId>hexagonal-ddd-applied-tests-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.seef.diag</groupId>
+                <artifactId>hexagonal-ddd-applied-adapters-tests</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>1</version>
@@ -52,6 +68,23 @@
                 <groupId>de.flapdoodle.embed</groupId>
                 <artifactId>de.flapdoodle.embed.mongo</artifactId>
                 <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${org.springframework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.9.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

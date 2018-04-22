@@ -11,7 +11,7 @@ public class ContactInfo extends ValueObject {
     private final Address address;
     private final String email;
 
-    private ContactInfo(List<PhoneNumber> phoneNumbers, Address address, String email) {
+    public ContactInfo(List<PhoneNumber> phoneNumbers, Address address, String email) {
         this.phoneNumbers = phoneNumbers;
         this.address = address;
         this.email = email;
@@ -27,10 +27,6 @@ public class ContactInfo extends ValueObject {
 
     public String getEmail() {
         return email;
-    }
-
-    public static class ContactInfoBuilder {
-
     }
 
 }
