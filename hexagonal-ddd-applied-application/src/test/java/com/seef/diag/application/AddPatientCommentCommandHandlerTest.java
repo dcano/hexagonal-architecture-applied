@@ -2,7 +2,7 @@ package com.seef.diag.application;
 
 import com.seef.diag.commons.DomainCommand;
 import com.seef.diag.commons.TenantId;
-import com.seef.diag.domain.command.AddPatientCommentCommand;
+import com.seef.diag.command.AddPatientCommentCommand;
 import com.seef.diag.domain.model.CommentCriticality;
 import com.seef.diag.domain.model.Patient;
 import com.seef.diag.domain.model.PatientId;

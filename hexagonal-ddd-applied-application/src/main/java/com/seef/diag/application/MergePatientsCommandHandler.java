@@ -2,7 +2,7 @@ package com.seef.diag.application;
 
 import com.seef.diag.commons.CommandHandler;
 import com.seef.diag.commons.TenantId;
-import com.seef.diag.domain.command.MergePatientsCommand;
+import com.seef.diag.command.MergePatientsCommand;
 import com.seef.diag.domain.model.Patient;
 import com.seef.diag.domain.model.PatientId;
 import com.seef.diag.domain.port.PatientOutputPort;

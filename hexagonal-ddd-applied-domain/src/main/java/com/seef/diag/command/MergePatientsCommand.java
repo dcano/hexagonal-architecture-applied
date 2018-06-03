@@ -1,4 +1,4 @@
-package com.seef.diag.domain.command;
+package com.seef.diag.command;
 
 import com.seef.diag.commons.DomainCommand;
 
