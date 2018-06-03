@@ -27,6 +27,6 @@ public class MergePatientsCommandHandler implements CommandHandler<MergePatients
     @Override
     public void handle(MergePatientsCommand command) {
         Patient destinationPatient = patientMergeService.mergePatients(PatientId.of(command.getSourcePatientId()), PatientId.of(command.getDestinationPatientId()), TenantId.of(command.tenantId()));
-        patientOutputPort.write(destinationPatient);
+        patientOutputPort.write(destinationPatient, command);
     }
 }

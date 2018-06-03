@@ -26,10 +26,11 @@ public class AddPatientCommentCommandHandler implements CommandHandler<AddPatien
     @Override
     public void handle(AddPatientCommentCommand command) {
         Patient patient = patientRepository.findOneBy(PatientId.of(command.getPatientId()), TenantId.of(command.tenantId()));
-        if(patient != null) {
+        if(patient == null) {
             throw new IllegalStateException("Patient with id " + command.getPatientId() + " does not exists.");
         }
         patient.addComment(command.getComment(), command.getCommentCriticality());
-        patientOutputPort.write(patient);
+        patientRepository.save(patient);
+        patientOutputPort.write(patient, command);
     }
 }

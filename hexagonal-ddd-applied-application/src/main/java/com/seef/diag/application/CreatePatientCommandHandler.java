@@ -40,6 +40,6 @@ public class CreatePatientCommandHandler implements CommandHandler<CreatePatient
                 .createNewPatient();
 
         patientRepository.save(patient);
-        patientOutputPort.write(patient);
+        patientOutputPort.write(patient, command);
     }
 }
