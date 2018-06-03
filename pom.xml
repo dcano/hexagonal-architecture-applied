@@ -12,10 +12,12 @@
     <modules>
         <module>hexagonal-ddd-applied-domain</module>
         <module>hexagonal-ddd-applied-application</module>
-        <module>hexagonal-ddd-applied-adapters</module>
         <module>hexagonal-ddd-applied-commons</module>
         <module>hexagonal-ddd-applied-adapters-tests</module>
         <module>hexagonal-ddd-applied-tests-utils</module>
+        <module>hexagonal-ddd-applied-adapters-output</module>
+        <module>hexagonal-ddd-applied-adapters-mongo-repository</module>
+        <module>hexagonal-ddd-applied-adapters-jpa-repository</module>
     </modules>
 
     <properties>
@@ -52,6 +54,16 @@
             <dependency>
                 <groupId>com.seef.diag</groupId>
                 <artifactId>hexagonal-ddd-applied-adapters-tests</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.seef.diag</groupId>
+                <artifactId>hexagonal-ddd-applied-adapters-output</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.seef.diag</groupId>
+                <artifactId>hexagonal-ddd-applied-adapters-mongo-repository</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

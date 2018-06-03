@@ -1,0 +1,33 @@
+package com.seef.diag.patient;
+
+import com.seef.diag.commons.ValueObject;
+
+class PatientName extends ValueObject {
+
+    private final String firstName;
+    private final String surname1;
+    private final String surname2;
+
+    private PatientName(String patientName, String surname1, String surname2) {
+        this.firstName = patientName;
+        this.surname1 = surname1;
+        this.surname2 = surname2;
+    }
+
+    String getFirstName() {
+        return firstName;
+    }
+
+    String getSurname1() {
+        return surname1;
+    }
+
+    String getSurname2() {
+        return surname2;
+    }
+
+    static PatientName of(String patientName, String surname1, String surname2) {
+        return new PatientName(patientName, surname1, surname2);
+    }
+
+}
